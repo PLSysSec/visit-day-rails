@@ -54,3 +54,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
+gem 'devise_invitable', '~> 2.0.0'
+
+# For that sweet, sweet lazy css goodness
+gem 'bootstrap', '~> 4.4.1'
+gem 'jquery-rails'

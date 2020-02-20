@@ -1,0 +1,94 @@
+$cal-border: 1px solid gray;
+$chunk-height: 3rem;
+$sched-title-height: 4rem;
+$grey-bg: #EEEEEEaa;
+.cal-root {
+    display: grid;
+    grid-template-columns:
+        [time-gutter] 3rem
+        [item-field] auto;
+    grid-template-rows: 
+        [title-gutter] $sched-title-height - ($chunk-height / 2)
+        [time-spillage-top] $chunk-height / 2
+        [cal-body-start] auto [cal-body-end]
+        $chunk-height / 2 [time-spillage-bottom];
+
+    height: 100%;
+    width: 100%;
+}
+
+.cal-time-gutter {
+    /* Position in parent */
+    grid-area: time-spillage-top / time-gutter / time-spillage-bottom / time-gutter;
+
+    /* Vertically center each time label within its cell */
+    align-items: center;
+
+}
+
+.cal-gridlines {
+    /* Position in parent */
+    grid-row: cal-body-start;
+    grid-column: item-field;
+
+    align-items: stretch;
+    .cal-line {
+        border-bottom: $cal-border;
+    }
+}
+
+.cal-time-gutter, .cal-gridlines {
+    display: grid;
+    grid-template-columns: 100%;
+    /* Height of each row */
+    grid-auto-rows: $chunk-height;
+
+}
+
+.cal-item-field {
+    /* Position in parent */
+    grid-area: title-gutter / item-field / cal-body-end / item-field;
+
+    display: grid;
+    grid-auto-columns: minmax(10rem, auto);
+    grid-template-rows: 100%;
+
+    border-right: $cal-border;
+
+    /* Alternate background colors */
+    :nth-child(odd) {
+    }
+    :nth-child(even) {
+        background: $grey-bg;
+    }
+    overflow-x: scroll;
+}
+
+/* Each child of item-field is an individual full-height schedule */
+.cal-item-field > * {
+    grid-row: 1;
+}
+
+.sched-root {
+    display: grid;
+
+    // Just one column
+    grid-template-columns: 100%;
+    grid-template-rows:
+        [sched-title] $sched-title-height
+        [sched-body] auto;
+
+
+    border-left: $cal-border;
+}
+
+.sched-title {
+    grid-row: sched-title;
+    grid-column: 1;
+    padding-left: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+
+    border-bottom: $cal-border;
+    border-bottom-width: 2px;
+}

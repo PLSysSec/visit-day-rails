@@ -1,0 +1,31 @@
+<%
+    day_start = date.change({ hour: 8 })
+    day_end = date.change({ hour: 18 })
+    step = 30 #minutes
+    num_chunks = ((day_end - day_start) * 24 * 60 / step);
+%>
+<div class="cal-root">
+    <div class="cal-time-gutter">
+        <% for i in 0..((day_end - day_start) * 24 * 60 / step)%>
+        <div>
+        <%= day_start.advance({minutes: i * step}).strftime("%l:%M") %><br/>
+        </div>
+        <% end %>
+    </div>
+    <div class="cal-gridlines">
+        <% for i in 0..(num_chunks - 1)%>
+        <div class="cal-line"></div>
+        <% end %>
+    </div>
+    <div class="cal-item-field">
+        <% for i in 0..20 %>
+        <div class="sched-root">
+            <div class="sched-title">
+                John
+            </div>
+        </div>
+        <%end%>
+        <div class="sched-root">
+        </div>
+    </div>
+</div>

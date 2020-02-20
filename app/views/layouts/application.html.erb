@@ -10,6 +10,16 @@
   </head>
 
   <body>
+    <%= render partial: '/layouts/navbar' %>
+    <div class="container pt-md-3">
+    <% flash.each do |key, value| %>
+      <div class="row flex-xl-nowrap <%= flash_class(key) %>">
+        <%= value %>
+      </div>
+    <% end %>
+    </div>
+    <div class="container">
     <%= yield %>
+    </div>
   </body>
 </html>
