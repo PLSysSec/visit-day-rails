@@ -62,4 +62,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+  config.log_level = :warn # In any environment initializer, or
 end

@@ -18,14 +18,12 @@
         <% end %>
     </div>
     <div class="cal-item-field">
-        <% for i in 0..20 %>
+        <% for student in students %>
         <div class="sched-root">
             <div class="sched-title">
-                John
+                <%= student.name %>
             </div>
         </div>
         <%end%>
-        <div class="sched-root">
-        </div>
     </div>
 </div>
