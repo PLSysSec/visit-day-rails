@@ -1,24 +1,33 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting Started
 
-Things you may want to cover:
+1. Ensure you have ruby installed. This app was built on 1.27 but 1.26 should be fine.
 
-* Ruby version
+2. Install Rails 6:
+```
+gem install rails
+```
 
-* System dependencies
+3. Bring the database up to speed by running:
+```
+rails db:migrate
+```
 
-* Configuration
+4. Start the webserver:
+```
+rails s
+```
 
-* Database creation
+**Note: it may ask you to run `yarn install --check-files`. This is normal.**
 
-* Database initialization
+## Creating the first admin
+The app isn't very useful without an intial admin account. You can create one using the following command:
 
-* How to run the test suite
+```
+rails visitday:invite_admin[myemail@server.com]
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Note that the brackets are part of the command.
 
-* Deployment instructions
-
-* ...
+This will print out the invite email to the command line which includes the verification link. Navigating to that link will prompt for a new password and you'll be all set
