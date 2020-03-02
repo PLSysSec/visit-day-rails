@@ -2,7 +2,7 @@
 
 <% if user_signed_in? %>
 <h3>New Event</h3>
-<%= render "form", author: @person, schedule_item: @schedule_item, is_conflict: false %>
+<%= render "form", author: @person, schedule_item: @schedule_item, is_conflict: false, all_people: @all_people %>
 <% if !@person.research_group? %>
 or 
 

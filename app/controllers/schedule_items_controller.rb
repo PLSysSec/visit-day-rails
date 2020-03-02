@@ -14,7 +14,7 @@ class ScheduleItemsController < ApplicationController
     logger.warn "IS GLOBAL?"
     logger.warn @schedule_item.is_global
     @schedule_items = @person.schedule_items
-    @all_people = Person.all
+    @all_people = Person.where.not(kind: :research_group)
     conflicts = @person.schedule_conflicts
     if conflicts.count > 0
       flash[:alert] = ""

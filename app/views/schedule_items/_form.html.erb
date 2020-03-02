@@ -67,7 +67,7 @@
         </div>
       <% else %>
         <%= form.label :with_person, class: 'sr-only' %>
-        <%= form.collection_select :with_person, Person.all, :id, :name, {}, {class: 'form-control custom-select', style: 'width: 100%'} %>
+        <%= form.collection_select :with_person, all_people, :id, :name, {}, {class: 'form-control custom-select', style: 'width: 100%'} %>
       <% end %>
     </div>
     <div class="form-group btn-group">
@@ -83,7 +83,7 @@
       <% end %>
     <% end %>
 
-    <% if !author.research_group? && schedule_item.is_group_event? %>
+    <% if !author&.research_group? && schedule_item.is_group_event? %>
         <%= link_to schedule_item_remove_attendee_url(schedule_item, author.id, author_id: author.id), method: 'delete', class: 'btn btn-danger' do %>
           <%= fa_icon "sign-out-alt", size: '1x' %>
         <% end %>
