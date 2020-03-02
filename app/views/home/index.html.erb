@@ -2,13 +2,20 @@
 <h3><%= kind.humanize %></h3>
 <ul class="list-group list-group-flush">
 <% for person in @people.filter {|p| p.kind == kind} %>
-  <%= link_to person_schedule_items_url(person.id), class: 'list-group-item list-group-item-action d-flex justify-content-between align-items-center' do %>
+  <%= link_to person_schedule_url(person.id), class: 'list-group-item list-group-item-action d-flex justify-content-between' do %>
     <%= person.name %>
-    <% if person.schedule_conflicts.count > 0 %>
-        <span class="text-danger">
-            <%= fa_icon "exclamation-circle", text: " Conflicts detected", size: '1x', left: true %>
-        </span>
-    <%end %>
+    <div class="col-md-6 row">
+        <div class="text-warning col-md-6">
+            <% if person.has_openings %>
+                <%= fa_icon "exclamation-triangle", text: " Unscheduled time", size: '1x', left: true %>
+            <% end %>
+        </div>
+        <div class="text-danger col-md-6">
+            <% if person.schedule_conflicts.count > 0 %>
+                <%= fa_icon "exclamation-circle", text: " Conflicts detected", size: '1x', left: true %>
+            <% end %>
+        </div>
+    </div>
   <% end %>
   </ul>
 <%end%>

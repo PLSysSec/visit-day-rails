@@ -25,8 +25,15 @@ ActiveRecord::Schema.define(version: 2020_03_02_055151) do
     t.index ["schedule_item_id", "person_id"], name: "schedule_item_id_person_join_index", unique: true
   end
 
-# Could not dump table "schedule_items" because of following StandardError
-#   Unknown type '' for column 'is_global'
+  create_table "schedule_items", force: :cascade do |t|
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_global", default: false, null: false
+    t.string "location"
+  end
 
 # Could not dump table "users" because of following StandardError
 #   Unknown type 'bool' for column 'is_admin'

@@ -3,8 +3,11 @@
   if is_conflict
     clas += ' conflict'
   end
+  author = nil if local_assigns[:author].nil?
+  disabled = nil if local_assigns[:disabled].nil?
+
 %>
-<%= form_with(model: [person, schedule_item], local: true, class: clas) do |form| %>
+<%= form_with(model: schedule_item, local: true, class: clas) do |form| %>
   <% if schedule_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(schedule_item.errors.count, "error") %> prohibited this schedule_item from being saved:</h2>
@@ -17,25 +20,37 @@
     </div>
   <% end %>
 
+    <%= form.hidden_field :is_global %>
+    <% if !author.nil? %>
+    <%= hidden_field_tag(:author_id, author&.id) %>
+    <%end%>
      <div class="form-group">
       <%= form.label :event_date, "Day", class: 'sr-only' %>
-      <%= form.select :event_date, Rails.configuration.x.days, {}, {class: 'form-control custom-select form-inline custom-control-inline'} %>
+      <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline custom-control-inline'} %>
       <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
-      <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
+      <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
       <%= form.label :ends_at_time, "End", class: 'sr-only' %>
-      <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, class: 'form-control form-input-inline', required: 'required' %>
+      <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required' %>
       <%= form.label :location, class: 'sr-only' %>
-      <%= form.text_field :location, value: schedule_item.location, class: 'form-control', placeholder: 'Location', required: true %>
+      <%= form.text_field :location, value: schedule_item.location, disabled: disabled, class: 'form-control', placeholder: 'Location', required: true %>
     </div>
      <div class="form-group col-md-4">
-      <% if schedule_item.persisted? %>
-        <% for attendee in schedule_item.people.all.filter {|a| a.id != person.id} %>
-          <%= link_to person_schedule_item_remove_attendee_url(person, schedule_item, attendee), method: 'delete', class: "btn btn-secondary" do %>
+      <% if disabled %>
+        <b style=><%= string_name_for(author, schedule_item) %></b> 
+      <% elsif schedule_item.is_global || author&.research_group? %>
+     
+      <%= form.label :name, class: 'sr-only' %>
+      <%= form.text_field :name, placeholder: "Event Name", class: 'form-control form-input-inline' %>
+      
+      <% elsif schedule_item.persisted? %>
+      <% for attendee in schedule_item.people.all.filter {|a| a.id != author.id} %>
+          <%= link_to schedule_item_remove_attendee_url(schedule_item, attendee, author_id: author.id), method: 'delete', class: "btn btn-secondary" do %>
             <%=attendee.name%>
             <span class="badge badge-secondary">
             x
             </span>
           <% end %>
+          &nbsp;
         <% end %>
         <div class="dropdown" style="display:inline-block">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,27 +59,36 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <% for attendee in all_people.filter {|p| !schedule_item.people.all.include? p} %>
               <%= link_to attendee.name,
-                person_schedule_item_add_attendee_url(person, schedule_item, attendee.id),
+                schedule_item_add_attendee_url(schedule_item, attendee.id, author_id: author.id),
                 method: :post,
                 class: "dropdown-item" %>
             <% end %>
           </div>
         </div>
       <% else %>
-      <%= form.label :with_person, class: 'sr-only' %>
-      <%= form.collection_select :with_person, Person.all, :id, :name, {}, {class: 'form-control custom-select', style: 'width: 100%'} %>
+        <%= form.label :with_person, class: 'sr-only' %>
+        <%= form.collection_select :with_person, Person.all, :id, :name, {}, {class: 'form-control custom-select', style: 'width: 100%'} %>
       <% end %>
     </div>
     <div class="form-group btn-group">
+    <% if !disabled %>
       <%= button_tag type: 'submit', class: 'btn btn-primary' do %>
         <%= fa_icon "save", size: '1x' %>
       <% end %>
 
       <% if !schedule_item.new_record? %>
-        <%= link_to person_schedule_item_url(person, schedule_item), method: 'delete', class: 'btn btn-danger', data: { confirm: 'This will delete the event for all participants' } do %>
+        <%= link_to schedule_item_url(schedule_item, author_id: author&.id), method: 'delete', class: 'btn btn-danger', data: { confirm: 'This will delete the event for all participants' } do %>
           <%= fa_icon "trash-alt", size: '1x' %>
         <% end %>
       <% end %>
+    <% end %>
+
+    <% if !author.research_group? && schedule_item.is_group_event? %>
+        <%= link_to schedule_item_remove_attendee_url(schedule_item, author.id, author_id: author.id), method: 'delete', class: 'btn btn-danger' do %>
+          <%= fa_icon "sign-out-alt", size: '1x' %>
+        <% end %>
+    <% end %>
     </div>
+
 <% end %>
 <br/>

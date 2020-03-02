@@ -11,16 +11,15 @@ Rails.application.routes.draw do
       get 'home'
     end
     
+    resources :schedule_items do
+      delete 'attendee/:attendee_id', to: "schedule_items#remove_attendee", as: "remove_attendee"
+      post 'attendee/:attendee_id', to: "schedule_items#add_attendee", as: "add_attendee"
+    end
+
+    get 'global/schedule', to: "schedule_items#global", as: 'global_schedule'
+    
     resources :people do
-      resources :schedule_items do
-        delete 'attendee/:attendee_id', to: "schedule_items#remove_attendee", as: "remove_attendee"
-        post 'attendee/:attendee_id', to: "schedule_items#add_attendee", as: "add_attendee"
-      end
+      get 'schedule', to: "schedule_items#for_person"
     end
-
-    scope :schedule do
-      get 'global', to: "global_schedule#index", as: "global_schedule"
-    end
-
   end
 end

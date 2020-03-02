@@ -1,0 +1,18 @@
+<h1>Global's Schedule</h1>
+
+<% if user_signed_in? %>
+Events listed here are added to everyone's schedule
+
+<h3>New Event</h3>
+<%= render "form", schedule_item: @schedule_item, is_conflict: false %>
+
+<br/>
+<br/>
+
+<h3>Schedule Items</h3>
+<% end %>
+  <% @schedule_items.each do |schedule_item| %>
+    <%= render "form", schedule_item: schedule_item, is_conflict: false, disabled: !user_signed_in? %>
+  <% end %>
+
+<br>

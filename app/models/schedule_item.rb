@@ -5,6 +5,14 @@ class ScheduleItem < ApplicationRecord
     attribute :ends_at, :datetime, default: -> { ScheduleItem.start_date_time } 
     has_and_belongs_to_many :people
 
+    def is_group_event?
+        self.people.exists?(kind: :research_group)
+    end
+
+    def group_name
+        self.people.where(kind: :research_group)[0].name
+    end
+
     def event_date
         self.starts_at_date
     end
@@ -52,7 +60,16 @@ class ScheduleItem < ApplicationRecord
         self.people << p unless self.people.include? p
     end
 
-    private
+    def author=(id)
+        with_person=(id)
+    end
+
+    def self.group_events
+        ScheduleItem.includes(:people)
+                    .where('people.kind' => :research_group)
+                    .order(starts_at: :asc, ends_at: :asc)
+    end
+
     def ScheduleItem.start_date_time
         t = Rails.configuration.x.start_time
         d = Rails.configuration.x.days[0]

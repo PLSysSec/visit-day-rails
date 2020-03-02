@@ -1,0 +1,33 @@
+<h1><%= @person.name %>'s Schedule</h1>
+
+<% if user_signed_in? %>
+<h3>New Event</h3>
+<%= render "form", author: @person, schedule_item: @schedule_item, is_conflict: false %>
+<% if !@person.research_group? %>
+or 
+
+<div class="dropdown" style="display:inline-block">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add Group Meeting
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <% for gm in @group_meetings %>
+      <%= link_to group_meeting_info(gm),
+        schedule_item_add_attendee_url(gm, @person, author_id: @person),
+        method: :post,
+        class: "dropdown-item" %>
+    <% end %>
+  </div>
+  </div>
+  <%end %>
+<br/>
+<br />
+
+
+<h3>Schedule Items</h3>
+<% end %>
+  <% @schedule_items.each do |schedule_item| %>
+    <%= render "form", author: @person, schedule_item: schedule_item, all_people: @all_people, is_conflict: (@conflicts.include? schedule_item), disabled: !user_signed_in? || schedule_item.is_global || (!@person.research_group? && schedule_item.is_group_event?)%>
+  <% end %>
+
+<br>
