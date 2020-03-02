@@ -1,7 +1,7 @@
 <h1><%= @person.name %>'s Schedule</h1>
 
 <h3>New Event</h3>
-<%= render "form", person: @person, schedule_item: ScheduleItem.new %>
+<%= render "form", person: @person, schedule_item: ScheduleItem.new, is_conflict: false %>
 
 <br/>
 <br/>
@@ -9,7 +9,7 @@
 
 <h3>Schedule Items</h3>
   <% @schedule_items.each do |schedule_item| %>
-    <%= render "form", person: @person, schedule_item: schedule_item, all_people: @all_people %>
+    <%= render "form", person: @person, schedule_item: schedule_item, all_people: @all_people, is_conflict: (@conflicts.include? schedule_item) %>
   <% end %>
 
 <br>

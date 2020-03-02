@@ -19,8 +19,7 @@ Rails.application.routes.draw do
     end
 
     scope :schedule do
-      get 'global', to: "schedule#global", as: "global_schedule"
-      get ':person', to: "schedule#for_person", as: "schedule"
+      get 'global', to: "global_schedule#index", as: "global_schedule"
     end
 
   end

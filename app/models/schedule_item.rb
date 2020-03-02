@@ -48,13 +48,14 @@ class ScheduleItem < ApplicationRecord
     end
 
     def with_person=(id)
-        self.people << (Person.find id)
+        p = Person.find id
+        self.people << p unless self.people.include? p
     end
 
     private
     def ScheduleItem.start_date_time
-        x = Rails.configuration.x.days[0].change hour: Rails.configuration.x.start_time.hour, min: Rails.configuration.x.start_time.min
-        logger.warn x
-        x
+        t = Rails.configuration.x.start_time
+        d = Rails.configuration.x.days[0]
+        dt = DateTime.new(d.year, d.month, d.day, t.hour, t.min, t.sec, Time.zone_offset(t.zone))
     end
 end

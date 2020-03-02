@@ -14,7 +14,7 @@
     <div class="container pt-md-3">
     <% flash.each do |key, value| %>
       <div class="row flex-xl-nowrap <%= flash_class(key) %>">
-        <%= value %>
+        <%= raw(value) %>
       </div>
     <% end %>
     </div>

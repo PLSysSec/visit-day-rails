@@ -1,4 +1,10 @@
-<%= form_with(model: [person, schedule_item], local: true, class: 'form-inline') do |form| %>
+<%
+  clas = 'form-inline'
+  if is_conflict
+    clas += ' conflict'
+  end
+%>
+<%= form_with(model: [person, schedule_item], local: true, class: clas) do |form| %>
   <% if schedule_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(schedule_item.errors.count, "error") %> prohibited this schedule_item from being saved:</h2>

@@ -6,9 +6,19 @@ class ScheduleItemsController < ApplicationController
   # GET /schedule_items
   # GET /schedule_items.json
   def index
-    logger.warn Rails.configuration.x.days
     @schedule_items = ScheduleItem.includes(:people).where('people.id' => @person.id).order(starts_at: :asc)
     @all_people = Person.all
+    conflicts = @person.schedule_conflicts
+    if conflicts.count > 0
+      flash[:alert] = ""
+      for p in conflicts
+        if !flash[:alert].empty?
+          flash[:alert] += "<br/>"
+        end
+        flash[:alert] += helpers.conflict_text(@person, p[0], p[1])
+      end
+    end
+    @conflicts = conflicts.flatten
   end
 
   def add_attendee
@@ -29,25 +39,16 @@ class ScheduleItemsController < ApplicationController
     end
   end
 
-  # GET /schedule_items/1
-  # GET /schedule_items/1.json
-  def show
-  end
-
   # GET /schedule_items/new
   def new
     @schedule_item = ScheduleItem.new
-  end
-
-  # GET /schedule_items/1/edit
-  def edit
   end
 
   # POST /schedule_items
   # POST /schedule_items.json
   def create
     @schedule_item = ScheduleItem.new(schedule_item_params)
-    @schedule_item.people << @person
+    @schedule_item.people << @person unless @schedule_item.people.include? @person
     respond_to do |format|
       if @schedule_item.save
         format.html { redirect_to person_schedule_items_url(@person), notice: 'Schedule item was successfully created.' }
@@ -62,10 +63,8 @@ class ScheduleItemsController < ApplicationController
   # PATCH/PUT /schedule_items/1
   # PATCH/PUT /schedule_items/1.json
   def update
-    logger.warn schedule_item_params
     respond_to do |format|
       if @schedule_item.update(schedule_item_params)
-        logger.warn @schedule_item.inspect
         format.html { redirect_to person_schedule_items_url(@person), notice: 'Schedule item was successfully updated.' }
         format.json { render :show, status: :ok, location: @schedule_item }
       else

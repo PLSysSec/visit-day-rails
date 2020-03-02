@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_02_012312) do
+ActiveRecord::Schema.define(version: 2020_03_02_055151) do
 
   create_table "people", force: :cascade do |t|
     t.string "name"
@@ -22,11 +22,11 @@ ActiveRecord::Schema.define(version: 2020_03_02_012312) do
   create_table "people_schedule_items", id: false, force: :cascade do |t|
     t.integer "person_id", null: false
     t.integer "schedule_item_id", null: false
-    t.index ["schedule_item_id", "person_id"], name: "schedule_item_id_person_join_index"
+    t.index ["schedule_item_id", "person_id"], name: "schedule_item_id_person_join_index", unique: true
   end
 
 # Could not dump table "schedule_items" because of following StandardError
-#   Unknown type 'bool' for column 'is_group_event'
+#   Unknown type '' for column 'is_global'
 
 # Could not dump table "users" because of following StandardError
 #   Unknown type 'bool' for column 'is_admin'
