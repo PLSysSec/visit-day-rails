@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @groups = Group.all
+    @people = Person.all
+    @kinds = Person.kinds.keys
   end
 end

@@ -2,6 +2,7 @@
   "name": "visit_day",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -14,6 +15,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "webpack-dev-server": "^3.10.3"
   }
 }

@@ -1,0 +1,18 @@
+<%= form_with(model: person, local: true) do |form| %>
+  <div class="form-row align-items-end">
+     <div class="form-group col-md-4">
+      <%= form.label :name, class: 'sr-only' %>
+      <%= form.text_field :name, class: 'form-control', required: 'required' %>
+    </div>
+     <div class="form-group col-md-2">
+      <%= form.label :kind, class: 'sr-only' %>
+      <%= form.select :kind, Person.kinds.keys.map { |w| [w.humanize, w] }, {:include_blank => false}, {class: 'form-control custom-select'} %>
+    </div>
+     <div class="form-group col-md-3">
+      <%= form.submit class: 'btn btn-primary' %>
+
+      <%= link_to 'x', person, method: 'delete', class: 'btn btn-danger' %>
+    </div>
+
+  </div>
+<% end %>

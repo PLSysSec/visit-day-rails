@@ -1,16 +1,10 @@
+<% for kind in @kinds %> 
+<h3><%= kind.humanize %></h3>
+<% for person in @people.filter {|p| p.kind == kind} %>
 <div class="row">
-<div>
-<b>Currently viewing: </b>
+<div class="col-md-5">
+<%= link_to person.name, person_schedule_items_url(person.id) %>
 </div>
-<div class="col-md-5 dropdown show">
-  <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    All Students
-  </button>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <% for group in @groups %>
-        <button class="dropdown-item" href="#"><%= group.name %></button>
-    <% end %>
-  </div>
 </div>
-<%= render partial: "calendar/frame", locals: {date: DateTime.now, students: Student.all} %>
+<%end%>
+<%end%>

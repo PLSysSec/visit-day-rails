@@ -15,5 +15,10 @@ module VisitDay
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    Rails.application.configure do    
+      # custom configuration section
+      config.x.days = ["March 10, 2020", "March 11, 2020"].map { |d| Date.parse d }
+      config.x.start_time = Time.parse "6:00 AM"
+    end
   end
 end

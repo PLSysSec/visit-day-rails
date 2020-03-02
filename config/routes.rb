@@ -10,14 +10,17 @@ Rails.application.routes.draw do
     namespace :admin do
       get 'home'
     end
-   
-    scope :admin do
-      resources :students
+    
+    resources :people do
+      resources :schedule_items do
+        delete 'attendee/:attendee_id', to: "schedule_items#remove_attendee", as: "remove_attendee"
+        post 'attendee/:attendee_id', to: "schedule_items#add_attendee", as: "add_attendee"
+      end
     end
 
     scope :schedule do
-      get '', to: 'schedule#all'
-      get ':group_name', to: 'schedule#group'
+      get 'global', to: "schedule#global", as: "global_schedule"
+      get ':person', to: "schedule#for_person", as: "schedule"
     end
 
   end

@@ -1,10 +1,10 @@
-<%= form_with(model: student, local: true) do |form| %>
-  <% if student.errors.any? %>
+<%= form_with(model: person, local: true) do |form| %>
+  <% if person.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
 
       <ul>
-        <% student.errors.full_messages.each do |message| %>
+        <% person.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -15,10 +15,9 @@
       <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control', required: 'required', autofocus: true %>
     </div>
-  
-     <div class="form-group col-md-4">
-      <%= form.label :group %>
-      <%= form.collection_select :group_id, Group.all, :id, :name, {}, {:class => 'form-control custom-select'} %>
+     <div class="form-group col-md-2">
+      <%= form.label :kind %>
+      <%= form.select :kind, Person.kinds.keys.map { |w| [w.humanize, w] }, {:include_blank => false}, {class: 'form-control custom-select'} %>
     </div>
 
      <div class="form-group col-mb-2">
