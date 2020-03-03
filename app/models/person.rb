@@ -36,7 +36,6 @@ class Person < ApplicationRecord
 
             end
         end
-        logger.warn conflicts
         conflicts
     end
 

@@ -45,10 +45,7 @@ class ScheduleItem < ApplicationRecord
         self.starts_at.to_s(:time)
     end
     def ends_at_time=(time)
-        logger.warn time
         time = Time.parse time
-        logger.warn "END TIMES!"
-        logger.warn time.strftime("%M")
         self.ends_at = self.ends_at.change(:hour=>time.hour, :min=>time.strftime("%M").to_i)
     end
     def ends_at_time
@@ -70,6 +67,7 @@ class ScheduleItem < ApplicationRecord
                     .order(starts_at: :asc, ends_at: :asc)
     end
 
+    private
     def ScheduleItem.start_date_time
         t = Rails.configuration.x.start_time
         d = Rails.configuration.x.days[0]

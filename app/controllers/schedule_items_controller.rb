@@ -11,8 +11,6 @@ class ScheduleItemsController < ApplicationController
 
   def for_person
     @schedule_item = ScheduleItem.new
-    logger.warn "IS GLOBAL?"
-    logger.warn @schedule_item.is_global
     @schedule_items = @person.schedule_items
     @all_people = Person.where.not(kind: :research_group)
     conflicts = @person.schedule_conflicts
@@ -30,8 +28,6 @@ class ScheduleItemsController < ApplicationController
   end
 
   def add_attendee
-    logger.warn "Adding attendee!"
-    logger.warn Person.find(params.require(:attendee_id))
     @schedule_item.people << Person.find(params.require(:attendee_id))
     @schedule_item.save
     respond_to do |format|
@@ -56,7 +52,6 @@ class ScheduleItemsController < ApplicationController
   # POST /schedule_items.json
   def create
     @schedule_item = ScheduleItem.new(schedule_item_params)
-    logger.warn schedule_item_params
     if !@author.nil? && schedule_item_params[:with_person].to_i != @author.id
       @schedule_item.people << @author
     end
