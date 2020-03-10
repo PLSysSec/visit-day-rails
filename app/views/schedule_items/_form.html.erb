@@ -24,7 +24,7 @@
     <% if !author.nil? %>
     <%= hidden_field_tag(:author_id, author&.id) %>
     <%end%>
-     <div class="form-group">
+    <div class="form-group">
       <%= form.label :event_date, "Day", class: 'sr-only' %>
       <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline custom-control-inline'} %>
       <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
@@ -39,18 +39,18 @@
         <b style=><%= string_name_for(author, schedule_item) %></b> 
       <% elsif schedule_item.is_global || author&.research_group? %>
      
-      <%= form.label :name, class: 'sr-only' %>
-      <%= form.text_field :name, placeholder: "Event Name", class: 'form-control form-input-inline' %>
+        <%= form.label :name, class: 'sr-only' %>
+        <%= form.text_field :name, placeholder: "Event Name", class: 'form-control form-input-inline' %>
       
       <% elsif schedule_item.persisted? %>
-      <% for attendee in schedule_item.people.all.filter {|a| a.id != author.id} %>
-          <%= link_to schedule_item_remove_attendee_url(schedule_item, attendee, author_id: author.id), method: 'delete', class: "btn btn-secondary" do %>
-            <%=attendee.name%>
-            <span class="badge badge-secondary">
-            x
-            </span>
-          <% end %>
-          &nbsp;
+        <% for attendee in schedule_item.people.all.filter {|a| a.id != author.id} %>
+            <%= link_to schedule_item_remove_attendee_url(schedule_item, attendee, author_id: author.id), method: 'delete', class: "btn btn-secondary" do %>
+              <%=attendee.name%>
+              <span class="badge badge-secondary">
+              x
+              </span>
+            <% end %>
+            &nbsp;
         <% end %>
         <div class="dropdown" style="display:inline-block">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,6 +89,13 @@
         <% end %>
     <% end %>
     </div>
+  <div style="margin-top: 10px; width:70%">
+    <% if disabled %>
+      <a href='<%= schedule_item.meeting_link %>'>Hi</a>
+    <% else %>
+      <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control form-input", style: "width:100%" %>
+    <% end %>
+  </div>
 
 <% end %>
 <br/>
