@@ -91,7 +91,7 @@
     </div>
   <div style="margin-top: 10px; width:70%">
     <% if disabled %>
-      <a href='<%= schedule_item.meeting_link %>'>Hi</a>
+      <a href='<%= schedule_item.meeting_link %>'><%=schedule_item.meeting_link%></a>
     <% else %>
       <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control form-input", style: "width:100%" %>
     <% end %>
