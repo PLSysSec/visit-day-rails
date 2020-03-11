@@ -1,4 +1,5 @@
 class ScheduleItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:for_person]
   before_action :get_person, only: [:for_person]
   before_action :get_author, only: [:create, :destroy, :update, :add_attendee, :remove_attendee]
   before_action :set_schedule_item, only: [:show, :edit, :update, :destroy, :remove_attendee, :add_attendee]

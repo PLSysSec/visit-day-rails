@@ -1,4 +1,5 @@
 class GlobalScheduleController < ApplicationController
+    before_action :authenticate_user!, except: [:index]
     before_action :schedule_item_params, only: [:update]
     before_action :set_schedule_item, only: [:update]
 
