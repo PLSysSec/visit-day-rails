@@ -30,7 +30,7 @@ class Person < ApplicationRecord
                     next
                 end
                 # By comparing id's we ensure that the conflict is only mentioned once
-                if i.starts_at >= j.starts_at && i.starts_at < j.ends_at && i.id < j.id
+                if (i.starts_at > j.starts_at || (i.starts_at == j.starts_at && i.id < j.id)) && i.starts_at < j.ends_at
                     conflicts << [i,j]
                 end
 
