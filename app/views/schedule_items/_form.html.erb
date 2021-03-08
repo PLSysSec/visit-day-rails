@@ -24,23 +24,23 @@
     <% if !author.nil? %>
     <%= hidden_field_tag(:author_id, author&.id) %>
     <%end%>
-    <div class="form-group">
+    <div class="form-group col-md-10 row">
       <%= form.label :event_date, "Day", class: 'sr-only' %>
-      <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline custom-control-inline'} %>
-      <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
-      <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
-      <%= form.label :ends_at_time, "End", class: 'sr-only' %>
-      <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required' %>
+      <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline col-auto'} %>
+      <div class="input-group col-auto">
+        <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
+        <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
+        <%= form.label :ends_at_time, "End", class: 'sr-only' %>
+        <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required' %>
+      </div>
       <%= form.label :location, class: 'sr-only' %>
-      <%= form.text_field :location, value: schedule_item.location, disabled: disabled, class: 'form-control', placeholder: 'Location', required: true %>
-    </div>
-     <div class="form-group col-md-4">
+
       <% if disabled %>
         <b style=><%= string_name_for(author, schedule_item) %></b> 
       <% elsif schedule_item.is_global || author&.research_group? %>
      
         <%= form.label :name, class: 'sr-only' %>
-        <%= form.text_field :name, placeholder: "Event Name", class: 'form-control form-input-inline' %>
+        <%= form.text_field :name, placeholder: "Event Name", class: 'form-control form-input-inline col-auto' %>
       
       <% elsif schedule_item.persisted? %>
         <% for attendee in schedule_item.people.all.filter {|a| a.id != author.id} %>
@@ -67,8 +67,29 @@
         </div>
       <% else %>
         <%= form.label :with_person, class: 'sr-only' %>
-        <%= form.collection_select :with_person, all_people, :id, :name, {}, {class: 'form-control custom-select', style: 'width: 100%'} %>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><%=fa_icon('user')%></div>
+          </div>
+          <%= form.collection_select :with_person, all_people, :id, :name, {}, {class: 'form-control custom-select col-auto'} %>
+        </div>
       <% end %>
+
+    <% if disabled %>
+      <a href='<%= schedule_item.meeting_link %>' class="col-auto"><%=schedule_item.meeting_link%></a>
+    <% else %>
+      <div class="form-group col-11 row" style="margin-top: .5em">
+
+      <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control col-8" %>
+      <% if schedule_item.is_global %>
+          <div class="form-check col-4">
+            <%= form.check_box :include_faculty, {class: 'form-check-input' } %>
+            <%= form.label :include_faculty, class: 'col-form-label'%>
+          </div>
+      <% end %>
+      </div>
+    <% end %>
+
     </div>
     <div class="form-group btn-group">
     <% if !disabled %>
@@ -89,19 +110,5 @@
         <% end %>
     <% end %>
     </div>
-  <div class="form-group" style="width: 70%">
-    <% if disabled %>
-      <a href='<%= schedule_item.meeting_link %>'><%=schedule_item.meeting_link%></a>
-    <% else %>
-      <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control form-input-inline col-sm-7" %>
-      <% if schedule_item.is_global %>
-          <div class="form-check col-sm-4">
-            <%= form.check_box :include_faculty, {class: 'form-check-input' } %>
-            <%= form.label :include_faculty, class: 'col-form-label'%>
-          </div>
-      <% end %>
-    <% end %>
-  </div>
-
 <% end %>
-<br/>
+<hr />
