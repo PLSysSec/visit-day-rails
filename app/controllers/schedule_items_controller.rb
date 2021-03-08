@@ -112,7 +112,7 @@ class ScheduleItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_item_params
-      params.require(:schedule_item).permit(:event_date, :with_person, :starts_at_time, :ends_at_time, :name, :location, :is_global, :meeting_link)
+      params.require(:schedule_item).permit(:event_date, :with_person, :starts_at_time, :ends_at_time, :name, :location, :is_global, :meeting_link, :include_faculty)
     end
 
     def get_person

@@ -7,7 +7,7 @@
   disabled = nil if local_assigns[:disabled].nil?
 
 %>
-<%= form_with(model: schedule_item, local: true, class: clas) do |form| %>
+<%= form_with(model: schedule_item, local: true, class: clas, namespace: schedule_item.id) do |form| %>
   <% if schedule_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(schedule_item.errors.count, "error") %> prohibited this schedule_item from being saved:</h2>
@@ -89,11 +89,17 @@
         <% end %>
     <% end %>
     </div>
-  <div style="margin-top: 10px; width:70%">
+  <div class="form-group" style="width: 70%">
     <% if disabled %>
       <a href='<%= schedule_item.meeting_link %>'><%=schedule_item.meeting_link%></a>
     <% else %>
-      <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control form-input", style: "width:100%" %>
+      <%= form.text_field :meeting_link, placeholder:"Link (e.g. meet.google.com/adsfasdf)", disabled:disabled, class: "form-control form-input-inline col-sm-7" %>
+      <% if schedule_item.is_global %>
+          <div class="form-check col-sm-4">
+            <%= form.check_box :include_faculty, {class: 'form-check-input' } %>
+            <%= form.label :include_faculty, class: 'col-form-label'%>
+          </div>
+      <% end %>
     <% end %>
   </div>
 

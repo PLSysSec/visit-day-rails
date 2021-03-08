@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_175801) do
+ActiveRecord::Schema.define(version: 2021_03_08_203344) do
 
   create_table "people", force: :cascade do |t|
     t.string "name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_175801) do
     t.boolean "is_global", default: false, null: false
     t.string "location"
     t.string "meeting_link"
+    t.boolean "include_faculty", default: false, null: false
   end
 
 # Could not dump table "users" because of following StandardError

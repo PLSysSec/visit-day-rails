@@ -7,7 +7,8 @@
     <div class="col-md-6 row">
         <div class="text-warning col-md-6">
             <% if person.has_openings %>
-                <%= fa_icon "exclamation-triangle", text: " Unscheduled time", size: '1x', left: true %>
+                <%# Don't report the unscheduled time since  COVID made visit day online and that's expected %>
+                <%#= fa_icon "exclamation-triangle", text: " Unscheduled time", size: '1x', left: true %>
             <% end %>
         </div>
         <div class="text-danger col-md-6">

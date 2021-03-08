@@ -7,7 +7,15 @@ class Person < ApplicationRecord
     def schedule_items
         items = ScheduleItem.includes(:people)
                     .where('people.id' => self.id)
-                    .or(ScheduleItem.includes(:people).where(is_global: true))
+                    .or(ScheduleItem.includes(:people)
+                        .where(is_global: true)
+                        .where(
+                            if self.faculty?
+                                {:include_faculty => true}
+                            else
+                                {}
+                            end
+                        ))
                     .order(starts_at: :asc, ends_at: :asc)
     end
 

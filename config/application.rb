@@ -17,7 +17,7 @@ module VisitDay
     # the framework and any gems in your application.
     Rails.application.configure do    
       # custom configuration section
-      config.x.days = ["March 12, 2020", "March 13, 2020"].map { |d| Date.parse d }
+      config.x.days = ["March 11, 2021", "March 12, 2021"].map { |d| Date.parse d }
       config.x.start_time = Time.parse "6:00 AM"
     end
   end
