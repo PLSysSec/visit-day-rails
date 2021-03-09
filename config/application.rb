@@ -19,6 +19,7 @@ module VisitDay
       # custom configuration section
       config.x.days = ["March 11, 2021", "March 12, 2021"].map { |d| Date.parse d }
       config.x.start_time = Time.parse "6:00 AM"
+      config.x.http_auth = {username: "visit", password: "day"}
     end
   end
 end
