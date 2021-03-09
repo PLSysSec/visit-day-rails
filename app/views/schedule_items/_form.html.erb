@@ -76,7 +76,7 @@
       <% end %>
 
     <% if disabled %>
-      <a href='<%= schedule_item.meeting_link %>' class="col-auto"><%=schedule_item.meeting_link%></a>
+      <span><%= Rinku.auto_link(schedule_item.meeting_link).html_safe %></span>
     <% else %>
       <div class="form-group col-11 row" style="margin-top: .5em">
 
