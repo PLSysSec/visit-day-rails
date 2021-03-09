@@ -36,7 +36,7 @@
       <%= form.label :location, class: 'sr-only' %>
 
       <% if disabled %>
-        <b style=><%= string_name_for(author, schedule_item) %></b> 
+        <div class="col-auto"><b style=><%= string_name_for(author, schedule_item) %></b></div>
       <% elsif schedule_item.is_global || author&.research_group? %>
      
         <%= form.label :name, class: 'sr-only' %>

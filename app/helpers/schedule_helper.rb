@@ -5,7 +5,7 @@ module ScheduleHelper
         elsif !item.name.nil?
             item.name
         else
-            "Meeting with #{item.people.all.map(&:name).join(', ')} at #{item.starts_at.strftime("%I:%M%p")}"
+            "Meeting with #{item.people.all.map(&:name).join(', ')}"
         end
     end
 
@@ -17,6 +17,6 @@ module ScheduleHelper
     end
 
     def conflict_text(person, item1, item2)
-        "#{string_name_for(@person, item1)} conflicts with #{string_name_for(@person, item2)}" 
+        "#{string_name_for(@person, item1)} at #{item1.starts_at.strftime("%I:%M%p")} conflicts with #{string_name_for(@person, item2)} at #{item2.starts_at.strftime("%I:%M%p")}" 
     end
 end
