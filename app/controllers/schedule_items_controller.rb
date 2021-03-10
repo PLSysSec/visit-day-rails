@@ -25,6 +25,18 @@ class ScheduleItemsController < ApplicationController
       end
     end
     @conflicts = conflicts.flatten
+    @missing_links = @person.missing_links
+
+    if @missing_links.count > 0
+      flash[:notice] = ""
+      for p in @missing_links
+        if !flash.now[:notice].empty?
+          flash.now[:notice] += "<br/>"
+        end
+        flash.now[:notice] += helpers.missing_link_text(@person, p)
+      end
+    end
+
     @group_meetings = ScheduleItem.group_events
   end
 

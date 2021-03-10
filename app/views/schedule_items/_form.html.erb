@@ -3,6 +3,9 @@
   if is_conflict
     clas += ' conflict'
   end
+  if is_missing_link
+    clas += ' missing_link'
+  end
   author = nil if local_assigns[:author].nil?
   disabled = nil if local_assigns[:disabled].nil?
 

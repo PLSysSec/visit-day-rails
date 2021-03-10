@@ -2,7 +2,7 @@
 
 <% if user_signed_in? %>
 <h3>New Event</h3>
-<%= render "form", author: @person, schedule_item: @schedule_item, is_conflict: false, all_people: @all_people %>
+<%= render "form", author: @person, schedule_item: @schedule_item, is_missing_link: false, is_conflict: false, all_people: @all_people %>
 <% if !@person.research_group? %>
 or 
 
@@ -27,7 +27,7 @@ or
 <h3>Schedule Items</h3>
 <% end %>
   <% @schedule_items.each do |schedule_item| %>
-    <%= render "form", author: @person, schedule_item: schedule_item, all_people: @all_people, is_conflict: (@conflicts.include? schedule_item), disabled: !user_signed_in? || schedule_item.is_global || (!@person.research_group? && schedule_item.is_group_event?)%>
+    <%= render "form", author: @person, schedule_item: schedule_item, all_people: @all_people, is_missing_link: schedule_item.missing_link?, is_conflict: (@conflicts.include? schedule_item), disabled: !user_signed_in? || schedule_item.is_global || (!@person.research_group? && schedule_item.is_group_event?)%>
   <% end %>
 
 <br>

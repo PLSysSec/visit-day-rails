@@ -21,4 +21,8 @@ module ScheduleHelper
     def conflict_text(person, item1, item2)
         "#{string_name_for(@person, item1)} at #{item1.starts_at.strftime("%I:%M%p")} conflicts with #{string_name_for(@person, item2)} at #{item2.starts_at.strftime("%I:%M%p")}" 
     end
+
+    def missing_link_text(person, item1)
+        "#{string_name_for(@person, item1)} at #{item1.starts_at.strftime("%I:%M%p")} is missing a link"
+    end
 end

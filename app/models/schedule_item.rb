@@ -13,6 +13,10 @@ class ScheduleItem < ApplicationRecord
         self.people.count == 1
     end
 
+    def missing_link?
+        self.meeting_link.empty? && (not self.is_busy_time?)
+    end
+
     def group_name
         self.people.where(kind: :research_group)[0].name
     end

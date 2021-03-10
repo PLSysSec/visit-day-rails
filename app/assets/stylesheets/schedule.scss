@@ -6,6 +6,15 @@
     padding: 5px;
 }
 
+.missing_link {
+    padding: 5px;
+    background: paleturquoise;
+}
+
+.missing_link.conflict {
+    background: linear-gradient(to right, pink, pink 50%, paleturquoise 50%);
+}
+
 input[type="time"] {
     width: 8.2rem !important;
 }
