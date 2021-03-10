@@ -4,6 +4,8 @@ module ScheduleHelper
             "#{item.group_name}: #{item.name}"
         elsif !item.name.nil?
             item.name
+        elsif item.is_busy_time?
+            "Busy"
         else
             "Meeting with #{item.people.all.map(&:name).join(', ')}"
         end

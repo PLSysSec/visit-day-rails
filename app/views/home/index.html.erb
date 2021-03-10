@@ -6,7 +6,7 @@
     <%= person.name %>
     <div class="col-md-6 row">
         <div class="text-warning col-md-6">
-            <% if person.schedule_items.where(is_global: false, meeting_link: '').any? %>
+            <% if person.missing_links.count > 0 %>
                 <%= fa_icon "exclamation-triangle", text: " Zoom Links Missing", size: '1x', left: true %>
             <% end %>
         </div>

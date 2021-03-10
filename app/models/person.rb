@@ -29,14 +29,15 @@ class Person < ApplicationRecord
         end
     end
 
+    def missing_links
+        self.schedule_items.where(is_global: false, meeting_link: '').filter{|i| not i.is_busy_time?}
+    end
+
     def schedule_conflicts
         items = self.schedule_items
         conflicts = []
         for i in items
             for j in items
-                if i == j
-                    next
-                end
                 # By comparing id's we ensure that the conflict is only mentioned once
                 if (i.starts_at > j.starts_at || (i.starts_at == j.starts_at && i.id < j.id)) && i.starts_at < j.ends_at
                     conflicts << [i,j]

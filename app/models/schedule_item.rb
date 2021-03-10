@@ -9,6 +9,10 @@ class ScheduleItem < ApplicationRecord
         self.people.exists?(kind: :research_group)
     end
 
+    def is_busy_time?
+        self.people.count == 1
+    end
+
     def group_name
         self.people.where(kind: :research_group)[0].name
     end
