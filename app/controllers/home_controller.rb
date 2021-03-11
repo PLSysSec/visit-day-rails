@@ -1,6 +1,9 @@
 class HomeController < ApplicationController
-  def index
+  def schedules
     @people = Person.all
     @kinds = Person.kinds.keys
+  end
+
+  def welcome
   end
 end

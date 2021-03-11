@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-    <a class="navbar-brand" href="/">Visit Day</a>
+    <%= link_to 'Visit Day', root_url, class: 'navbar-brand' %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a href="/" class="nav-link">Schedules</a>
+            <%= link_to 'Schedules', all_schedules_url, class: 'nav-link' %>
         </li>
         <li class="nav-item">
             <%= link_to 'Global Events', global_schedule_url, class: 'nav-link' %>

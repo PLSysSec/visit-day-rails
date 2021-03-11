@@ -1,0 +1,74 @@
+<h1> Welcome to UCSD Visit Day </h1>
+<br />
+
+<% images = Dir.children('public/slideshow').map {|i| "/slideshow/#{i}"}%>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height: 480px">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <% images.each_with_index do |_, idx| %>
+      <li data-target="#carouselExampleIndicators" data-slide-to="<%= idx %>"></li>
+    <% end %>
+  </ol>
+  <div class="carousel-inner" style="height: 100%;">
+    <% images.each_with_index do |img, idx| %>
+      <div class="carousel-item <%= 'active' if idx == 0 %>" style="text-align: center; background: black">
+        <img src="<%=img%>" style="height: 480px; object-fit: contain" loading="lazy"/>
+      </div>
+    <% end %>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<br />
+<h3>Hello!</h3>
+<br/>
+
+<p>You are awesome and we want you to come to UCSD! It’s unfortunate that you
+don’t get to see the campus and San Diego in person, but we hope that our
+meetings will give you a glimpse into the excellent research you could be
+doing at UCSD and the awesome community we have. 
+</p>
+
+<p>
+Here, you will be able to see the schedules assigned to all attendees: these
+include time slots with zoom links with the folks you will meet throughout
+the day. Your name will be listed under the heading “Prospective” (you may
+want to use ctrl-F to find yourself, since there are a lot of names); you can
+click on your name to access your specific schedule for the visit days.
+</p>
+
+<p>
+Beyond the one-on-ones and group meeting(s), we wanted to highlight three student events:
+</p>
+
+<ul>
+<li><b>Diversity, equity and inclusion panel</b> on at Thu 1pm.
+<li><b>Student panel</b> on Thu at 5pm.
+<li><b>Game night</b> on Fri at 5pm.
+</ul>
+
+<p>These events are informal, but likely informative and fun -- we encourage you
+to attend!
+<br/>
+
+<p><b>We have a dedicated
+<a href="https://join.slack.com/t/ucsdcsevisitday2021/shared_invite/zt-mq1qo4o1-Ra_QXMGgVwAvbIp2yyCecA">
+  visit day slack
+</a></b>
+where you can hang out with us and other admits.
+
+Finally, if you have any questions, comments, or concerns, please feel free
+to ping your student buddy or the organizers (Deian &lt;<a href="mailto:deian@cs.ucsd.edu">deian@cs.ucsd.edu</a>&gt; and
+Tierra &lt;<a href="mailto:tterrell@eng.ucsd.edu">tterrell@eng.ucsd.edu</a>&gt;) or ask on the visit day slack.
+</p>
+<br/>
+
+Have fun!
