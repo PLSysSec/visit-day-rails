@@ -91,7 +91,7 @@
       <% end %>
 
     <% if disabled %>
-      <span><%= Rinku.auto_link(schedule_item.meeting_link).html_safe %></span>
+      <span><%= Rinku.auto_link(schedule_item.meeting_link) {|_| "Zoom Meeting"}.html_safe %></span>
     <% else %>
       <div class="form-group col-11 row" style="margin-top: .5em">
 
