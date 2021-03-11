@@ -6,4 +6,7 @@ class HomeController < ApplicationController
 
   def welcome
   end
+
+  def student_panel
+  end
 end

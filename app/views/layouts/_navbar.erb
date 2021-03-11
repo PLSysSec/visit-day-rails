@@ -9,6 +9,9 @@
         <li class="nav-item">
             <%= link_to 'Schedules', all_schedules_url, class: 'nav-link' %>
         </li>
+        <li class="nav-item">
+            <%= link_to 'Student Panel', "/student_panel", class: 'nav-link' %>
+        </li>
         <% if user_signed_in? %>
             <li class="nav-item">
                 <%= link_to 'Global Events', global_schedule_url, class: 'nav-link' %>

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     root to: "home#welcome"
 
     get 'schedules', to: 'home#schedules', as: 'all_schedules'
-    
+    get 'student_panel' , to: 'home#student_panel'
 
     namespace :admin do
       get 'home'
