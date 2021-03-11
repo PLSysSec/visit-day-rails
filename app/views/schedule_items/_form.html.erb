@@ -28,16 +28,28 @@
     <%= hidden_field_tag(:author_id, author&.id) %>
     <%end%>
     <div class="form-group col-md-10 row">
-      <%= form.label :event_date, "Day", class: 'sr-only' %>
-      <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline col-auto'} %>
-      <div class="input-group col-auto">
-        <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
-        <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
-        <%= form.label :ends_at_time, "End", class: 'sr-only' %>
-        <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required' %>
-      </div>
-      <%= form.label :location, class: 'sr-only' %>
-
+      <% if disabled %>
+          <span class="col-auto" style="font-weight: bold">
+            <%= schedule_item.starts_at.strftime("%b %e") %>
+          </span>
+          <div class="col-auto" style="font-weight: bold">
+          <%= schedule_item.starts_at.strftime("%l:%M%p") %> - 
+          <%= schedule_item.ends_at.strftime("%l:%M%p") %>
+          (PST)
+          </div>
+      <% else %>
+        <%= form.label :event_date, "Day", class: 'sr-only' %>
+        <%= form.select :event_date, Rails.configuration.x.days, {}, {disabled: disabled, class: 'form-control custom-select form-inline col-auto'} %>
+        <div class="col-auto">
+        <div class="input-group" style="display: inline-block">
+          <%= form.label :starts_at_time, "Start", class: 'sr-only' %>
+          <%= form.time_field :starts_at_time, value: schedule_item.starts_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required', autofocus: true %>
+          <%= form.label :ends_at_time, "End", class: 'sr-only' %>
+          <%= form.time_field :ends_at_time, value: schedule_item.ends_at_time, disabled: disabled, class: 'form-control form-input-inline', required: 'required' %>
+        </div>
+        (PST)
+        </div>
+      <% end %>
       <% if disabled %>
         <div class="col-auto"><b style=><%= string_name_for(author, schedule_item) %></b></div>
       <% elsif schedule_item.is_global || author&.research_group? %>

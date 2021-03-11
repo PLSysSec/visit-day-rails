@@ -12,7 +12,7 @@ Events listed here are added to everyone's schedule
 <h3>Schedule Items</h3>
 <% end %>
   <% @schedule_items.each do |schedule_item| %>
-    <%= render "form", schedule_item: schedule_item, is_missing_link: schedule_item.missing_link? is_conflict: false, disabled: !user_signed_in? %>
+    <%= render "form", schedule_item: schedule_item, is_missing_link: schedule_item.missing_link?, is_conflict: false, disabled: !user_signed_in? %>
   <% end %>
 
 <br>
